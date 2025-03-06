@@ -1,0 +1,28 @@
+name: Stock Screener Alert
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Runs every 5 minutes
+
+jobs:
+  stock_alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install gspread requests
+
+      - name: Run Stock Screener
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.7705019987:AAEpc62vs-3dEOjfPr9SVaDIPQA_6kz-KRI }}
+          TELEGRAM_CHAT_ID: ${{ secrets.@StockScreenerHunter_Bot }}
+          GOOGLE_SHEET_ID: ${{ secrets.https://docs.google.com/spreadsheets/d/1epMY_CmbaJVS__ZwFJTIAvv3mdJZB8KU95P7GVciygI/edit?usp=sharing }}
+        run: python stock_bot.py
